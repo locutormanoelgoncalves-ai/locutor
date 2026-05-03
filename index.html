@@ -1,254 +1,251 @@
-import React, { useState, useRef } from 'react';
-import { 
-  Play, 
-  Pause, 
-  ShoppingCart, 
-  Building, 
-  Mic, 
-  Instagram, 
-  Youtube, 
-  Facebook, 
-  Radio, 
-  Cpu, 
-  Video,
-  Music,
-  Volume2
-} from 'lucide-react';
-
-const App = () => {
-  const [activeAudio, setActiveAudio] = useState(null);
-  const [progress, setProgress] = useState({});
-  const audioRefs = useRef({});
-
-  // Lista de Demos - Substitui as strings vazias em 'file' pelos teus links de áudio futuramente
-  const demos = [
-    {
-      id: 'varejo',
-      title: 'Publicidade Varejo',
-      subtitle: 'Porta de Loja / Ofertas Rápidas',
-      icon: <ShoppingCart className="w-5 h-5" />,
-      color: 'bg-yellow-500',
-      file: '' // Insere aqui o link do áudio (ex: https://site.com/audio.mp3)
-    },
-    {
-      id: 'institucional',
-      title: 'Locução Institucional',
-      subtitle: 'Corporativo / Narração Sóbria',
-      icon: <Building className="w-5 h-5" />,
-      color: 'bg-blue-600',
-      file: '' 
-    },
-    {
-      id: 'radioloja',
-      title: 'Rádio Loja',
-      subtitle: 'Gestão de PDV / Chamadas',
-      icon: <Radio className="w-5 h-5" />,
-      color: 'bg-purple-600',
-      file: ''
-    },
-    {
-      id: 'virtual',
-      title: 'Locutor Virtual',
-      subtitle: 'Atendimento / Treinamentos',
-      icon: <Cpu className="w-5 h-5" />,
-      color: 'bg-green-600',
-      file: ''
-    }
-  ];
-
-  const toggleAudio = (id) => {
-    const audio = audioRefs.current[id];
+<!DOCTYPE html>
+<html lang="pt-pt" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manoel Gonçalves | Locutor Profissional</title>
+    <!-- Tailwind CSS para o design -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons para os ícones modernos -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
     
-    if (!audio || !audio.src || audio.src === window.location.href) {
-      console.warn("Nenhum link de áudio configurado para este item.");
-      return;
-    }
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0a0a0c; color: #e5e7eb; }
+        .serif { font-family: 'Playfair Display', serif; }
+        .gold-text { background: linear-gradient(to right, #d4af37, #fcf6ba, #d4af37); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .gold-bg { background: linear-gradient(to bottom right, #d4af37, #aa8a2e); }
+        .glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .audio-card:hover { border-color: #d4af37; transform: translateY(-5px); transition: all 0.3s ease; }
+    </style>
+</head>
+<body class="selection:bg-yellow-500 selection:text-black">
 
-    if (activeAudio && activeAudio !== id) {
-      if (audioRefs.current[activeAudio]) {
-        audioRefs.current[activeAudio].pause();
-      }
-    }
-
-    if (audio.paused) {
-      audio.play().catch(err => {
-        console.error("Erro ao reproduzir áudio. Verifique se o link está correto.");
-      });
-      setActiveAudio(id);
-    } else {
-      audio.pause();
-      setActiveAudio(null);
-    }
-  };
-
-  const handleTimeUpdate = (id) => {
-    const audio = audioRefs.current[id];
-    if (audio && audio.duration) {
-      const percentage = (audio.currentTime / audio.duration) * 100;
-      setProgress(prev => ({ ...prev, [id]: percentage }));
-    }
-  };
-
-  const formatTime = (time) => {
-    if (!time || isNaN(time)) return "0:00";
-    const min = Math.floor(time / 60);
-    const sec = Math.floor(time % 60);
-    return `${min}:${sec < 10 ? '0' : ''}${sec}`;
-  };
-
-  return (
-    <div className="min-h-screen bg-[#0a0a0c] text-gray-200 font-sans selection:bg-yellow-500 selection:text-black">
-      
-      {/* Navegação */}
-      <nav className="fixed w-full z-50 border-b border-white/5 bg-black/80 backdrop-blur-xl">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <span className="text-2xl font-black italic text-white tracking-tighter uppercase">MG</span>
-            <div className="h-6 w-[1px] bg-white/20 mx-2"></div>
-            <span className="text-[10px] font-bold tracking-[0.3em] uppercase hidden sm:block text-gray-400">Manoel Gonçalves</span>
-          </div>
-          <div className="flex gap-6 text-[11px] font-bold uppercase tracking-widest">
-            <a href="#demos" className="hover:text-yellow-500 transition">Demos</a>
-            <a href="#video" className="hover:text-yellow-500 transition">Vídeo</a>
-            <a href="#contato" className="text-yellow-500 border border-yellow-500/30 px-5 py-2 rounded-full hover:bg-yellow-500 hover:text-black transition">Orçamento</a>
-          </div>
+    <!-- Navegação -->
+    <nav class="fixed w-full z-50 border-b border-white/5 bg-black/60 backdrop-blur-lg">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl font-black italic text-white tracking-tighter serif uppercase">MG</span>
+                <div class="h-6 w-[1px] bg-white/20 mx-2"></div>
+                <span class="text-[10px] font-bold tracking-[0.3em] uppercase hidden sm:block text-gray-400">Manoel Gonçalves</span>
+            </div>
+            <div class="flex gap-6 text-[11px] font-bold uppercase tracking-widest">
+                <a href="#demos" class="hover:text-yellow-500 transition">Demos</a>
+                <a href="#video" class="hover:text-yellow-500 transition">Vídeo</a>
+                <a href="#contato" class="text-yellow-500 border border-yellow-500/30 px-5 py-2 rounded-full hover:bg-yellow-500 hover:text-black transition uppercase font-bold">Orçamento</a>
+            </div>
         </div>
-      </nav>
+    </nav>
 
-      {/* Hero Section */}
-      <section id="inicio" className="relative min-h-screen flex items-center pt-20 overflow-hidden px-6">
-        <div className="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none bg-gradient-to-l from-yellow-500/30 to-transparent"></div>
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center pt-20 overflow-hidden px-6">
+        <div class="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none bg-gradient-to-l from-yellow-500/30 to-transparent"></div>
         
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 items-center gap-12 relative z-10 w-full">
-          <div>
-            <h2 className="text-yellow-500 font-bold uppercase tracking-[0.4em] text-[10px] mb-6">Locutor Profissional</h2>
-            <h1 className="text-5xl md:text-8xl font-black leading-none mb-8 text-white italic tracking-tighter uppercase">
-              A Voz do <br/><span className="bg-gradient-to-r from-yellow-400 to-yellow-100 bg-clip-text text-transparent italic">Seu Sucesso.</span>
-            </h1>
-            <p className="text-gray-400 text-lg mb-10 max-w-lg leading-relaxed">
-              Mais de 25 anos de experiência no rádio e publicidade. Transformo o seu roteiro numa conexão emocional com o seu cliente.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <a href="#demos" className="px-10 py-5 bg-yellow-500 text-black font-extrabold rounded-2xl hover:bg-yellow-400 transition shadow-2xl shadow-yellow-500/20 uppercase text-[10px] tracking-widest">
-                Ouvir Portfólio
-              </a>
-              <a href="https://wa.me/5551995700329" target="_blank" className="px-10 py-5 bg-white/5 border border-white/10 text-white font-extrabold rounded-2xl hover:bg-white/10 transition uppercase text-[10px] tracking-widest flex items-center gap-2">
-                <i className="fab fa-whatsapp"></i> WhatsApp
-              </a>
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 items-center gap-12 relative z-10 w-full">
+            <div class="text-center md:text-left">
+                <h2 class="text-yellow-500 font-bold uppercase tracking-[0.4em] text-[10px] mb-6">Locutor Profissional</h2>
+                <h1 class="text-5xl md:text-8xl font-black leading-none mb-8 text-white italic tracking-tighter uppercase serif">
+                    A Voz do <br/><span class="gold-text italic">Seu Sucesso.</span>
+                </h1>
+                <p class="text-gray-400 text-lg mb-10 max-w-lg leading-relaxed">
+                    Mais de 25 anos de experiência transformando textos em conexões reais. Especialista em varejo, rádio loja e publicidade de alto impacto.
+                </p>
+                <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+                    <a href="#demos" class="px-10 py-5 gold-bg text-black font-extrabold rounded-2xl hover:scale-105 transition shadow-2xl shadow-yellow-500/20 uppercase text-[10px] tracking-widest">
+                        Ouvir Portfólio
+                    </a>
+                    <a href="https://wa.me/5551995700329" target="_blank" class="px-10 py-5 glass border-white/10 text-white font-extrabold rounded-2xl hover:bg-white/10 transition uppercase text-[10px] tracking-widest flex items-center gap-2">
+                        <i data-lucide="phone" class="w-4 h-4"></i> WhatsApp
+                    </a>
+                </div>
             </div>
-          </div>
-          <div className="hidden md:block relative">
-            <div className="absolute -inset-20 bg-yellow-500/5 blur-[120px] rounded-full"></div>
-            <div className="relative rounded-[2rem] border border-white/10 overflow-hidden shadow-2xl aspect-[4/5] bg-gray-900">
-               <img 
-                src="https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&q=80&w=800" 
-                alt="Estúdio Profissional" 
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-1000"
-              />
+            <div class="hidden md:block relative">
+                <div class="absolute -inset-20 bg-yellow-500/5 blur-[120px] rounded-full"></div>
+                <div class="relative rounded-[2rem] border border-white/10 overflow-hidden shadow-2xl aspect-[4/5]">
+                    <img src="https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&q=80&w=800" 
+                         alt="Estúdio Manoel Gonçalves" 
+                         class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-1000">
+                </div>
             </div>
-          </div>
         </div>
-      </section>
+    </section>
 
-      {/* Player de Demos */}
-      <section id="demos" className="py-32 bg-[#08080a] px-6">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl font-bold mb-4 text-white italic tracking-tight uppercase">Demonstrativos</h2>
-            <p className="text-gray-500 text-sm tracking-wide italic">Qualidade de estúdio profissional em cada gravação.</p>
-          </div>
+    <!-- Seção de Áudio -->
+    <section id="demos" class="py-32 bg-[#08080a] px-6 text-center">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-4xl font-bold mb-4 text-white italic uppercase serif tracking-tight">Demonstrativos</h2>
+            <p class="text-gray-500 text-sm mb-20 italic">Fique à vontade para ouvir os meus trabalhos recentes.</p>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {demos.map((demo) => (
-              <div key={demo.id} className="bg-white/[0.03] border border-white/5 p-8 rounded-[2rem] hover:border-yellow-500/30 transition-all group">
-                <div className="flex items-center gap-5 mb-10">
-                  <div className={`w-14 h-14 ${demo.color} rounded-2xl flex items-center justify-center text-black shadow-lg`}>
-                    {demo.icon}
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-white text-lg">{demo.title}</h4>
-                    <p className="text-[10px] text-gray-500 uppercase font-bold tracking-[0.2em]">{demo.subtitle}</p>
-                  </div>
+            <div class="grid md:grid-cols-2 gap-8 text-left">
+                <!-- Varejo -->
+                <div class="glass p-8 rounded-[2rem] audio-card border border-white/5" data-id="varejo">
+                    <div class="flex items-center gap-5 mb-8">
+                        <div class="w-14 h-14 gold-bg rounded-2xl flex items-center justify-center text-black shadow-lg">
+                            <i data-lucide="shopping-cart"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white text-lg uppercase">Varejo Impacto</h4>
+                            <p class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Porta de Loja / Ofertas</p>
+                        </div>
+                    </div>
+                    <div class="bg-black/60 p-5 rounded-2xl flex items-center gap-5">
+                        <button onclick="toggleAudio('varejo')" class="w-12 h-12 rounded-full bg-yellow-500 text-black flex items-center justify-center hover:scale-110 transition play-btn">
+                            <i data-lucide="play" class="ml-1 fill-current"></i>
+                        </button>
+                        <div class="flex-1">
+                            <div class="h-1 bg-white/10 w-full rounded-full overflow-hidden mb-2">
+                                <div class="h-full bg-yellow-500 w-0 progress-bar"></div>
+                            </div>
+                            <div class="flex justify-between text-[10px] font-mono text-gray-600">
+                                <span class="current-time">0:00</span>
+                                <span class="duration">0:00</span>
+                            </div>
+                        </div>
+                        <audio src="" ontimeupdate="updateProgress(this)" onended="audioEnded(this)"></audio>
+                    </div>
                 </div>
 
-                <div className="bg-black/60 p-5 rounded-2xl flex items-center gap-5">
-                  <button 
-                    onClick={() => toggleAudio(demo.id)}
-                    className="w-12 h-12 rounded-full bg-yellow-500 text-black flex items-center justify-center hover:scale-110 transition-transform shadow-lg"
-                  >
-                    {activeAudio === demo.id ? <Pause size={20} fill="currentColor" /> : <Play size={20} fill="currentColor" className="ml-1" />}
-                  </button>
-                  <div className="flex-1">
-                    <div className="h-1 bg-white/10 w-full rounded-full overflow-hidden mb-2">
-                      <div 
-                        className="h-full bg-yellow-500 transition-all duration-100" 
-                        style={{ width: `${progress[demo.id] || 0}%` }}
-                      ></div>
+                <!-- Institucional -->
+                <div class="glass p-8 rounded-[2rem] audio-card border border-white/5" data-id="institucional">
+                    <div class="flex items-center gap-5 mb-8">
+                        <div class="w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center text-white shadow-lg">
+                            <i data-lucide="building"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white text-lg uppercase">Institucional</h4>
+                            <p class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Corporativo / Narração</p>
+                        </div>
                     </div>
-                    <div className="flex justify-between text-[10px] font-mono text-gray-600 uppercase tracking-widest">
-                      <span>{formatTime(audioRefs.current[demo.id]?.currentTime)}</span>
-                      <span>{formatTime(audioRefs.current[demo.id]?.duration)}</span>
+                    <div class="bg-black/60 p-5 rounded-2xl flex items-center gap-5">
+                        <button onclick="toggleAudio('institucional')" class="w-12 h-12 rounded-full bg-yellow-500 text-black flex items-center justify-center hover:scale-110 transition play-btn">
+                            <i data-lucide="play" class="ml-1 fill-current"></i>
+                        </button>
+                        <div class="flex-1">
+                            <div class="h-1 bg-white/10 w-full rounded-full overflow-hidden mb-2">
+                                <div class="h-full bg-yellow-500 w-0 progress-bar"></div>
+                            </div>
+                            <div class="flex justify-between text-[10px] font-mono text-gray-600">
+                                <span class="current-time">0:00</span>
+                                <span class="duration">0:00</span>
+                            </div>
+                        </div>
+                        <audio src="" ontimeupdate="updateProgress(this)" onended="audioEnded(this)"></audio>
                     </div>
-                  </div>
-                  <audio 
-                    ref={el => audioRefs.current[demo.id] = el}
-                    src={demo.file}
-                    onTimeUpdate={() => handleTimeUpdate(demo.id)}
-                    onEnded={() => setActiveAudio(null)}
-                    preload="metadata"
-                  />
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Vídeo Demonstrativo */}
-      <section id="video" className="py-32 bg-black px-6 border-t border-white/5">
-        <div className="max-w-5xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-4 text-white italic tracking-tight uppercase">Trabalhos em Vídeo</h2>
-          <p className="text-gray-500 text-[10px] font-bold uppercase tracking-[0.3em] mb-16 underline decoration-yellow-500 underline-offset-8">Voz aplicada à Imagem</p>
-          
-          <div className="relative group max-w-4xl mx-auto">
-            <div className="absolute -inset-1 bg-gradient-to-r from-yellow-500 to-yellow-200 rounded-[2.5rem] blur opacity-10 group-hover:opacity-30 transition duration-1000"></div>
-            <div className="relative aspect-video rounded-[2rem] overflow-hidden border border-white/10 bg-black shadow-2xl">
-              <iframe 
-                className="w-full h-full" 
-                src="https://www.youtube.com/embed/amvderkNXqw" 
-                title="Demonstrativo Manoel Gonçalves" 
-                frameBorder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                allowFullScreen>
-              </iframe>
             </div>
-          </div>
         </div>
-      </section>
+    </section>
 
-      {/* Contacto Final */}
-      <footer id="contato" className="py-32 bg-[#050505] border-t border-white/5 text-center px-6">
-        <Mic className="w-12 h-12 text-yellow-500 mx-auto mb-8 opacity-40" />
-        <h2 className="text-4xl md:text-7xl font-black mb-16 text-white italic tracking-tighter uppercase leading-tight">Bora Gravar <br/><span className="gold-text">a sua ideia?</span></h2>
-        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
-          <a href="https://wa.me/5551995700329" target="_blank" className="w-full sm:w-auto px-12 py-6 bg-green-600 text-white font-extrabold rounded-2xl shadow-2xl hover:bg-green-700 transition uppercase text-[11px] tracking-widest flex items-center justify-center gap-3">
-            <i className="fab fa-whatsapp text-2xl"></i> WHATSAPP (51) 99570-0329
-          </a>
-          <a href="mailto:locutor@manoelgoncalves.com.br" className="text-gray-400 font-bold hover:text-yellow-500 transition text-sm underline underline-offset-8 decoration-white/10 uppercase tracking-widest">
-            locutor@manoelgoncalves.com.br
-          </a>
+    <!-- Vídeo Demonstrativo -->
+    <section id="video" class="py-32 bg-black px-6 border-t border-white/5">
+        <div class="max-w-5xl mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-4 text-white italic tracking-tight uppercase serif">Trabalhos em Vídeo</h2>
+            <p class="text-gray-500 text-[10px] font-bold uppercase tracking-[0.3em] mb-16 underline decoration-yellow-500 underline-offset-8">Aplicações Reais</p>
+            
+            <div class="relative group max-w-4xl mx-auto">
+                <div class="absolute -inset-1 bg-gradient-to-r from-yellow-500 to-yellow-200 rounded-[2.5rem] blur opacity-10 group-hover:opacity-30 transition duration-1000"></div>
+                <div class="relative aspect-video rounded-[2rem] overflow-hidden border border-white/10 bg-black shadow-2xl">
+                    <iframe 
+                        class="w-full h-full" 
+                        src="https://www.youtube.com/embed/amvderkNXqw" 
+                        title="Demonstrativo Manoel Gonçalves" 
+                        frameBorder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        allowFullScreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto -->
+    <footer id="contato" class="py-32 bg-[#050505] border-t border-white/5 text-center px-6">
+        <div class="mb-8">
+            <i data-lucide="mic" class="w-12 h-12 text-yellow-500 mx-auto opacity-30"></i>
+        </div>
+        <h2 class="text-4xl md:text-7xl font-black mb-16 text-white italic tracking-tighter uppercase serif leading-tight">VAMOS GRAVAR <br/><span class="gold-text italic">A SUA IDEIA?</span></h2>
+        
+        <div class="flex flex-col sm:flex-row gap-6 justify-center items-center mb-20">
+            <a href="https://wa.me/5551995700329" target="_blank" class="w-full sm:w-auto px-12 py-6 bg-green-600 text-white font-extrabold rounded-2xl shadow-2xl hover:bg-green-700 transition uppercase text-xs tracking-widest flex items-center justify-center gap-4">
+                <i data-lucide="phone-call" class="w-5 h-5"></i> WHATSAPP (51) 99570-0329
+            </a>
+            <a href="mailto:locutor@manoelgoncalves.com.br" class="text-gray-400 font-bold hover:text-yellow-500 transition text-sm underline underline-offset-8 decoration-white/10 uppercase tracking-widest">
+                locutor@manoelgoncalves.com.br
+            </a>
         </div>
         
-        <div className="flex justify-center gap-10 mb-12 text-gray-500 text-2xl">
-          <a href="https://instagram.com/locutor_manoel_goncalves" target="_blank" className="hover:text-yellow-500 transition"><Instagram /></a>
-          <a href="https://youtube.com/locutormanoelgonçalves" target="_blank" className="hover:text-yellow-500 transition"><Youtube /></a>
-          <a href="https://facebook.com/locutormanoelgoncalves" target="_blank" className="hover:text-yellow-500 transition"><Facebook /></a>
+        <div class="flex justify-center gap-10 mb-12 text-gray-500">
+            <a href="https://instagram.com/locutor_manoel_goncalves" target="_blank" class="hover:text-yellow-500 transition"><i data-lucide="instagram"></i></a>
+            <a href="https://youtube.com/locutormanoelgonçalves" target="_blank" class="hover:text-yellow-500 transition"><i data-lucide="youtube"></i></a>
+            <a href="https://facebook.com/locutormanoelgoncalves" target="_blank" class="hover:text-yellow-500 transition"><i data-lucide="facebook"></i></a>
         </div>
         
-        <p className="text-gray-700 text-[10px] uppercase tracking-[0.6em] font-black italic">Manoel Gonçalves • Locutor Profissional • 2026</p>
-      </footer>
-    </div>
-  );
-};
+        <p class="text-gray-700 text-[9px] uppercase tracking-[0.6em] font-black italic">Manoel Gonçalves • 2026</p>
+    </footer>
 
-export default App;
+    <script>
+        // Inicializar os ícones da Lucide
+        lucide.createIcons();
+
+        let currentActiveId = null;
+
+        function toggleAudio(id) {
+            const card = document.querySelector(`[data-id="${id}"]`);
+            const audio = card.querySelector('audio');
+            const icon = card.querySelector('.play-btn i');
+
+            if (currentActiveId && currentActiveId !== id) {
+                const prevCard = document.querySelector(`[data-id="${currentActiveId}"]`);
+                const prevAudio = prevCard.querySelector('audio');
+                const prevIcon = prevCard.querySelector('.play-btn i');
+                prevAudio.pause();
+                prevIcon.setAttribute('data-lucide', 'play');
+            }
+
+            if (audio.paused) {
+                if (!audio.src || audio.src === window.location.href) {
+                    alert("Aguardando configuração do link de áudio.");
+                    return;
+                }
+                audio.play();
+                icon.setAttribute('data-lucide', 'pause');
+                currentActiveId = id;
+            } else {
+                audio.pause();
+                icon.setAttribute('data-lucide', 'play');
+            }
+            lucide.createIcons();
+        }
+
+        function updateProgress(audio) {
+            const card = audio.closest('.audio-card');
+            const progressBar = card.querySelector('.progress-bar');
+            const currentTimeEl = card.querySelector('.current-time');
+            const durationEl = card.querySelector('.duration');
+
+            const percent = (audio.currentTime / audio.duration) * 100;
+            progressBar.style.width = percent + '%';
+            
+            currentTimeEl.innerText = formatTime(audio.currentTime);
+            durationEl.innerText = formatTime(audio.duration);
+        }
+
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return "0:00";
+            const min = Math.floor(seconds / 60);
+            const sec = Math.floor(seconds % 60);
+            return `${min}:${sec < 10 ? '0' : ''}${sec}`;
+        }
+
+        function audioEnded(audio) {
+            const card = audio.closest('.audio-card');
+            const icon = card.querySelector('.play-btn i');
+            icon.setAttribute('data-lucide', 'play');
+            card.querySelector('.progress-bar').style.width = '0%';
+            currentActiveId = null;
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>
