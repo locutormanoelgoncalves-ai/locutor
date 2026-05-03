@@ -10,10 +10,9 @@ import {
   Facebook, 
   Radio, 
   Cpu, 
-  TestTube, 
-  Volume2, 
   Video,
-  ExternalLink
+  Music,
+  Volume2
 } from 'lucide-react';
 
 const App = () => {
@@ -21,60 +20,64 @@ const App = () => {
   const [progress, setProgress] = useState({});
   const audioRefs = useRef({});
 
+  // Lista de Demos - Substitui as strings vazias em 'file' pelos teus links de áudio futuramente
   const demos = [
-    {
-      id: 'teste',
-      title: 'Teste de Som',
-      subtitle: 'Verificando pasta /audio/',
-      icon: <TestTube className="w-5 h-5" />,
-      color: 'bg-red-600',
-      file: 'audio/teste.mp3' 
-    },
     {
       id: 'varejo',
       title: 'Publicidade Varejo',
-      subtitle: 'Porta de Loja / Ofertas',
+      subtitle: 'Porta de Loja / Ofertas Rápidas',
       icon: <ShoppingCart className="w-5 h-5" />,
       color: 'bg-yellow-500',
-      file: 'audio/varejo.mp3' 
+      file: '' // Insere aqui o link do áudio (ex: https://site.com/audio.mp3)
     },
     {
       id: 'institucional',
-      title: 'Institucional',
-      subtitle: 'Corporativo / Narração',
+      title: 'Locução Institucional',
+      subtitle: 'Corporativo / Narração Sóbria',
       icon: <Building className="w-5 h-5" />,
       color: 'bg-blue-600',
-      file: 'audio/institucional.mp3'
+      file: '' 
     },
     {
       id: 'radioloja',
       title: 'Rádio Loja',
-      subtitle: 'Gestão de PDV',
+      subtitle: 'Gestão de PDV / Chamadas',
       icon: <Radio className="w-5 h-5" />,
       color: 'bg-purple-600',
-      file: 'audio/radioloja.mp3'
+      file: ''
+    },
+    {
+      id: 'virtual',
+      title: 'Locutor Virtual',
+      subtitle: 'Atendimento / Treinamentos',
+      icon: <Cpu className="w-5 h-5" />,
+      color: 'bg-green-600',
+      file: ''
     }
   ];
 
   const toggleAudio = (id) => {
     const audio = audioRefs.current[id];
     
+    if (!audio || !audio.src || audio.src === window.location.href) {
+      console.warn("Nenhum link de áudio configurado para este item.");
+      return;
+    }
+
     if (activeAudio && activeAudio !== id) {
       if (audioRefs.current[activeAudio]) {
         audioRefs.current[activeAudio].pause();
       }
     }
 
-    if (audio) {
-      if (audio.paused) {
-        audio.play().catch(err => {
-          console.error(`Ficheiro ${audio.src} não encontrado.`);
-        });
-        setActiveAudio(id);
-      } else {
-        audio.pause();
-        setActiveAudio(null);
-      }
+    if (audio.paused) {
+      audio.play().catch(err => {
+        console.error("Erro ao reproduzir áudio. Verifique se o link está correto.");
+      });
+      setActiveAudio(id);
+    } else {
+      audio.pause();
+      setActiveAudio(null);
     }
   };
 
@@ -96,60 +99,65 @@ const App = () => {
   return (
     <div className="min-h-screen bg-[#0a0a0c] text-gray-200 font-sans selection:bg-yellow-500 selection:text-black">
       
-      {/* Menu Superior */}
+      {/* Navegação */}
       <nav className="fixed w-full z-50 border-b border-white/5 bg-black/80 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
           <div className="flex items-center gap-2">
-            <span className="text-2xl font-black italic text-white tracking-tighter">MG</span>
+            <span className="text-2xl font-black italic text-white tracking-tighter uppercase">MG</span>
             <div className="h-6 w-[1px] bg-white/20 mx-2"></div>
             <span className="text-[10px] font-bold tracking-[0.3em] uppercase hidden sm:block text-gray-400">Manoel Gonçalves</span>
           </div>
           <div className="flex gap-6 text-[11px] font-bold uppercase tracking-widest">
             <a href="#demos" className="hover:text-yellow-500 transition">Demos</a>
             <a href="#video" className="hover:text-yellow-500 transition">Vídeo</a>
-            <a href="#contato" className="text-yellow-500 border border-yellow-500/30 px-4 py-2 rounded-full hover:bg-yellow-500 hover:text-black transition">Contacto</a>
+            <a href="#contato" className="text-yellow-500 border border-yellow-500/30 px-5 py-2 rounded-full hover:bg-yellow-500 hover:text-black transition">Orçamento</a>
           </div>
         </div>
       </nav>
 
-      {/* Hero */}
+      {/* Hero Section */}
       <section className="relative min-h-screen flex items-center pt-20 overflow-hidden px-6">
         <div className="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none bg-gradient-to-l from-yellow-500/30 to-transparent"></div>
+        
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 items-center gap-12 relative z-10 w-full">
           <div>
-            <h2 className="text-yellow-500 font-bold uppercase tracking-[0.4em] text-[10px] mb-6 tracking-widest">Locutor Profissional</h2>
+            <h2 className="text-yellow-500 font-bold uppercase tracking-[0.4em] text-[10px] mb-6">Locutor Profissional</h2>
             <h1 className="text-5xl md:text-8xl font-black leading-none mb-8 text-white italic tracking-tighter uppercase">
-              A Voz Do <br/><span className="bg-gradient-to-r from-yellow-400 to-yellow-100 bg-clip-text text-transparent">Seu Negócio.</span>
+              A Voz do <br/><span className="bg-gradient-to-r from-yellow-400 to-yellow-100 bg-clip-text text-transparent italic">Seu Sucesso.</span>
             </h1>
             <p className="text-gray-400 text-lg mb-10 max-w-lg leading-relaxed">
-              Mais de 25 anos de experiência no rádio e publicidade. Entrega rápida com qualidade de estúdio profissional.
+              Mais de 25 anos de experiência no rádio e publicidade. Transformo o seu roteiro numa conexão emocional com o seu cliente.
             </p>
             <div className="flex flex-wrap gap-4">
               <a href="#demos" className="px-10 py-5 bg-yellow-500 text-black font-extrabold rounded-2xl hover:bg-yellow-400 transition shadow-2xl shadow-yellow-500/20 uppercase text-[10px] tracking-widest">
                 Ouvir Portfólio
               </a>
-              <a href="https://wa.me/5551995700329" target="_blank" className="px-10 py-5 bg-white/5 border border-white/10 text-white font-extrabold rounded-2xl hover:bg-white/10 transition uppercase text-[10px] tracking-widest">
-                WhatsApp
+              <a href="https://wa.me/5551995700329" target="_blank" className="px-10 py-5 bg-white/5 border border-white/10 text-white font-extrabold rounded-2xl hover:bg-white/10 transition uppercase text-[10px] tracking-widest flex items-center gap-2">
+                <i className="fab fa-whatsapp"></i> WhatsApp
               </a>
             </div>
           </div>
           <div className="hidden md:block relative">
             <div className="absolute -inset-20 bg-yellow-500/5 blur-[120px] rounded-full"></div>
-            <div className="relative rounded-[2rem] border border-white/10 overflow-hidden shadow-2xl">
-              <img 
+            <div className="relative rounded-[2rem] border border-white/10 overflow-hidden shadow-2xl aspect-[4/5] bg-gray-900">
+               <img 
                 src="https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&q=80&w=800" 
-                alt="Estúdio Manoel Gonçalves" 
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-700 shadow-2xl"
+                alt="Estúdio Profissional" 
+                className="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-1000"
               />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Demos de Áudio */}
+      {/* Player de Demos */}
       <section id="demos" className="py-32 bg-[#08080a] px-6">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-4xl font-bold mb-16 text-white italic text-center uppercase tracking-tight text-gradient bg-gradient-to-r from-yellow-500 to-white bg-clip-text text-transparent">Portfólio de Voz</h2>
+          <div className="text-center mb-20">
+            <h2 className="text-4xl font-bold mb-4 text-white italic tracking-tight uppercase">Demonstrativos</h2>
+            <p className="text-gray-500 text-sm tracking-wide italic">Qualidade de estúdio profissional em cada gravação.</p>
+          </div>
+
           <div className="grid md:grid-cols-2 gap-8">
             {demos.map((demo) => (
               <div key={demo.id} className="bg-white/[0.03] border border-white/5 p-8 rounded-[2rem] hover:border-yellow-500/30 transition-all group">
@@ -164,7 +172,10 @@ const App = () => {
                 </div>
 
                 <div className="bg-black/60 p-5 rounded-2xl flex items-center gap-5">
-                  <button onClick={() => toggleAudio(demo.id)} className="w-12 h-12 rounded-full bg-yellow-500 text-black flex items-center justify-center hover:scale-110 transition-transform shadow-lg">
+                  <button 
+                    onClick={() => toggleAudio(demo.id)}
+                    className="w-12 h-12 rounded-full bg-yellow-500 text-black flex items-center justify-center hover:scale-110 transition-transform shadow-lg"
+                  >
                     {activeAudio === demo.id ? <Pause size={20} fill="currentColor" /> : <Play size={20} fill="currentColor" className="ml-1" />}
                   </button>
                   <div className="flex-1">
@@ -180,11 +191,11 @@ const App = () => {
                     </div>
                   </div>
                   <audio 
-                    ref={el => audioRefs.current[demo.id] = el} 
-                    src={demo.file} 
-                    onTimeUpdate={() => handleTimeUpdate(demo.id)} 
-                    onEnded={() => setActiveAudio(null)} 
-                    preload="metadata" 
+                    ref={el => audioRefs.current[demo.id] = el}
+                    src={demo.file}
+                    onTimeUpdate={() => handleTimeUpdate(demo.id)}
+                    onEnded={() => setActiveAudio(null)}
+                    preload="metadata"
                   />
                 </div>
               </div>
@@ -195,11 +206,9 @@ const App = () => {
 
       {/* Vídeo Demonstrativo */}
       <section id="video" className="py-32 bg-black px-6 border-t border-white/5">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4 text-white italic tracking-tight uppercase">Vídeo Demonstrativo</h2>
-            <p className="text-gray-500 text-[10px] font-bold uppercase tracking-[0.3em]">Trabalhos em Destaque</p>
-          </div>
+        <div className="max-w-5xl mx-auto text-center">
+          <h2 className="text-4xl font-bold mb-4 text-white italic tracking-tight uppercase">Trabalhos em Vídeo</h2>
+          <p className="text-gray-500 text-[10px] font-bold uppercase tracking-[0.3em] mb-16 underline decoration-yellow-500 underline-offset-8">Voz aplicada à Imagem</p>
           
           <div className="relative group max-w-4xl mx-auto">
             <div className="absolute -inset-1 bg-gradient-to-r from-yellow-500 to-yellow-200 rounded-[2.5rem] blur opacity-10 group-hover:opacity-30 transition duration-1000"></div>
@@ -210,30 +219,33 @@ const App = () => {
                 title="Demonstrativo Manoel Gonçalves" 
                 frameBorder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                allowFullScreen
-              ></iframe>
+                allowFullScreen>
+              </iframe>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Contacto */}
+      {/* Contacto Final */}
       <footer id="contato" className="py-32 bg-[#050505] border-t border-white/5 text-center px-6">
-        <Mic className="w-12 h-12 text-yellow-500 mx-auto mb-8 opacity-30" />
-        <h2 className="text-4xl md:text-6xl font-black mb-12 text-white italic tracking-tighter uppercase leading-tight">Bora Gravar <br/>a sua ideia?</h2>
+        <Mic className="w-12 h-12 text-yellow-500 mx-auto mb-8 opacity-40" />
+        <h2 className="text-4xl md:text-7xl font-black mb-16 text-white italic tracking-tighter uppercase leading-tight">Bora Gravar <br/><span className="gold-text">a sua ideia?</span></h2>
         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
-          <a href="https://wa.me/5551995700329" target="_blank" className="w-full sm:w-auto px-12 py-6 bg-green-600 text-white font-extrabold rounded-2xl shadow-2xl hover:bg-green-700 transition uppercase text-[11px] tracking-widest">
-            WhatsApp (51) 99570-0329
+          <a href="https://wa.me/5551995700329" target="_blank" className="w-full sm:w-auto px-12 py-6 bg-green-600 text-white font-extrabold rounded-2xl shadow-2xl hover:bg-green-700 transition uppercase text-[11px] tracking-widest flex items-center justify-center gap-3">
+            <i class="fab fa-whatsapp text-2xl"></i> WHATSAPP (51) 99570-0329
+          </a>
+          <a href="mailto:locutor@manoelgoncalves.com.br" className="text-gray-400 font-bold hover:text-yellow-500 transition text-sm underline underline-offset-8 decoration-white/10 uppercase tracking-widest">
+            locutor@manoelgoncalves.com.br
           </a>
         </div>
         
-        <div className="flex justify-center gap-10 mb-12 text-gray-500 text-xl">
+        <div className="flex justify-center gap-10 mb-12 text-gray-500 text-2xl">
           <a href="https://instagram.com/locutor_manoel_goncalves" target="_blank" className="hover:text-yellow-500 transition"><Instagram /></a>
           <a href="https://youtube.com/locutormanoelgonçalves" target="_blank" className="hover:text-yellow-500 transition"><Youtube /></a>
           <a href="https://facebook.com/locutormanoelgoncalves" target="_blank" className="hover:text-yellow-500 transition"><Facebook /></a>
         </div>
         
-        <p className="text-gray-700 text-[9px] uppercase tracking-[0.6em] font-black italic">Manoel Gonçalves • 2026</p>
+        <p className="text-gray-700 text-[10px] uppercase tracking-[0.6em] font-black italic">Manoel Gonçalves • Locutor Profissional • 2026</p>
       </footer>
     </div>
   );
