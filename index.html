@@ -78,22 +78,23 @@
     <section id="demos" class="py-32 bg-[#08080a] px-6 text-center">
         <div class="max-w-5xl mx-auto">
             <h2 class="text-4xl md:text-6xl font-bold mb-4 text-white uppercase font-title tracking-tight">Demonstrativos</h2>
-            <p class="text-gray-500 text-sm mb-20 italic tracking-widest">Fique à vontade para ouvir os meus trabalhos recentes.</p>
+            <p class="text-gray-500 text-sm mb-20 italic tracking-widest">Qualidade de estúdio e versatilidade em cada projeto.</p>
 
             <div class="grid md:grid-cols-2 gap-8 text-left">
-                <!-- Varejo -->
-                <div class="glass p-8 rounded-[2rem] audio-card border border-white/5" data-id="varejo">
+                
+                <!-- Demonstrativo MIX -->
+                <div class="glass p-8 rounded-[2rem] audio-card border border-white/5" data-id="mix">
                     <div class="flex items-center gap-5 mb-8">
-                        <div class="w-14 h-14 gold-bg rounded-2xl flex items-center justify-center text-black shadow-lg">
-                            <i data-lucide="shopping-cart"></i>
+                        <div class="w-14 h-14 bg-red-600 rounded-2xl flex items-center justify-center text-white shadow-lg">
+                            <i data-lucide="mic"></i>
                         </div>
                         <div>
-                            <h4 class="font-bold text-white text-lg uppercase tracking-tight">Varejo Impacto</h4>
-                            <p class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Porta de Loja / Ofertas</p>
+                            <h4 class="font-bold text-white text-lg uppercase tracking-tight">Demonstrativo MIX</h4>
+                            <p class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Resumo do Portfólio</p>
                         </div>
                     </div>
                     <div class="bg-black/60 p-5 rounded-2xl flex items-center gap-5">
-                        <button onclick="toggleAudio('varejo')" class="w-12 h-12 rounded-full bg-yellow-500 text-black flex items-center justify-center hover:scale-110 transition play-btn">
+                        <button onclick="toggleAudio('mix')" class="w-12 h-12 rounded-full bg-yellow-500 text-black flex items-center justify-center hover:scale-110 transition play-btn">
                             <i data-lucide="play" class="ml-1 fill-current"></i>
                         </button>
                         <div class="flex-1">
@@ -105,23 +106,23 @@
                                 <span class="duration">0:00</span>
                             </div>
                         </div>
-                        <audio src="" ontimeupdate="updateProgress(this)" onended="audioEnded(this)"></audio>
+                        <audio src="https://sites-manoelgoncalves.baatq5.easypanel.host/wp-content/uploads/2025/06/audio-demonstrativo.mp3" preload="metadata" ontimeupdate="updateProgress(this)" onended="audioEnded(this)"></audio>
                     </div>
                 </div>
 
-                <!-- Institucional -->
-                <div class="glass p-8 rounded-[2rem] audio-card border border-white/5" data-id="institucional">
+                <!-- Porta de Loja (Ao Vivo) -->
+                <div class="glass p-8 rounded-[2rem] audio-card border border-white/5" data-id="porta-loja">
                     <div class="flex items-center gap-5 mb-8">
-                        <div class="w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center text-white shadow-lg">
-                            <i data-lucide="building"></i>
+                        <div class="w-14 h-14 gold-bg rounded-2xl flex items-center justify-center text-black shadow-lg">
+                            <i data-lucide="megaphone"></i>
                         </div>
                         <div>
-                            <h4 class="font-bold text-white text-lg uppercase tracking-tight">Institucional</h4>
-                            <p class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Corporativo / Narração</p>
+                            <h4 class="font-bold text-white text-lg uppercase tracking-tight">Porta de Loja</h4>
+                            <p class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Estilo Ao Vivo / Impacto</p>
                         </div>
                     </div>
                     <div class="bg-black/60 p-5 rounded-2xl flex items-center gap-5">
-                        <button onclick="toggleAudio('institucional')" class="w-12 h-12 rounded-full bg-yellow-500 text-black flex items-center justify-center hover:scale-110 transition play-btn">
+                        <button onclick="toggleAudio('porta-loja')" class="w-12 h-12 rounded-full bg-yellow-500 text-black flex items-center justify-center hover:scale-110 transition play-btn">
                             <i data-lucide="play" class="ml-1 fill-current"></i>
                         </button>
                         <div class="flex-1">
@@ -133,30 +134,143 @@
                                 <span class="duration">0:00</span>
                             </div>
                         </div>
-                        <audio src="" ontimeupdate="updateProgress(this)" onended="audioEnded(this)"></audio>
+                        <audio src="https://sites-manoelgoncalves.baatq5.easypanel.host/wp-content/uploads/2023/06/IMPERIO-DO-JEANS.mp3" preload="metadata" ontimeupdate="updateProgress(this)" onended="audioEnded(this)"></audio>
                     </div>
                 </div>
+
+                <!-- Varejo Farmácia -->
+                <div class="glass p-8 rounded-[2rem] audio-card border border-white/5" data-id="farmacia">
+                    <div class="flex items-center gap-5 mb-8">
+                        <div class="w-14 h-14 bg-emerald-600 rounded-2xl flex items-center justify-center text-white shadow-lg">
+                            <i data-lucide="activity"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white text-lg uppercase tracking-tight">Varejo Farmácia</h4>
+                            <p class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Ofertas Multidrogas</p>
+                        </div>
+                    </div>
+                    <div class="bg-black/60 p-5 rounded-2xl flex items-center gap-5">
+                        <button onclick="toggleAudio('farmacia')" class="w-12 h-12 rounded-full bg-yellow-500 text-black flex items-center justify-center hover:scale-110 transition play-btn">
+                            <i data-lucide="play" class="ml-1 fill-current"></i>
+                        </button>
+                        <div class="flex-1">
+                            <div class="h-1 bg-white/10 w-full rounded-full overflow-hidden mb-2">
+                                <div class="h-full bg-yellow-500 w-0 progress-bar"></div>
+                            </div>
+                            <div class="flex justify-between text-[10px] font-mono text-gray-600">
+                                <span class="current-time">0:00</span>
+                                <span class="duration">0:00</span>
+                            </div>
+                        </div>
+                        <audio src="https://sites-manoelgoncalves.baatq5.easypanel.host/wp-content/uploads/2023/06/MULTIDROGAS-LOC-MANOEL-GONCALVES.mp3" preload="metadata" ontimeupdate="updateProgress(this)" onended="audioEnded(this)"></audio>
+                    </div>
+                </div>
+
+                <!-- Varejo Ótica -->
+                <div class="glass p-8 rounded-[2rem] audio-card border border-white/5" data-id="otica">
+                    <div class="flex items-center gap-5 mb-8">
+                        <div class="w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center text-white shadow-lg">
+                            <i data-lucide="glasses"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white text-lg uppercase tracking-tight">Varejo Ótica</h4>
+                            <p class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Artvisão / Chamada Comercial</p>
+                        </div>
+                    </div>
+                    <div class="bg-black/60 p-5 rounded-2xl flex items-center gap-5">
+                        <button onclick="toggleAudio('otica')" class="w-12 h-12 rounded-full bg-yellow-500 text-black flex items-center justify-center hover:scale-110 transition play-btn">
+                            <i data-lucide="play" class="ml-1 fill-current"></i>
+                        </button>
+                        <div class="flex-1">
+                            <div class="h-1 bg-white/10 w-full rounded-full overflow-hidden mb-2">
+                                <div class="h-full bg-yellow-500 w-0 progress-bar"></div>
+                            </div>
+                            <div class="flex justify-between text-[10px] font-mono text-gray-600">
+                                <span class="current-time">0:00</span>
+                                <span class="duration">0:00</span>
+                            </div>
+                        </div>
+                        <audio src="https://sites-manoelgoncalves.baatq5.easypanel.host/wp-content/uploads/2023/06/OTICA-ARTVISAO-LOC-MANOEL-GONCALVES.mp3" preload="metadata" ontimeupdate="updateProgress(this)" onended="audioEnded(this)"></audio>
+                    </div>
+                </div>
+                
+                <!-- Igrejas -->
+                <div class="glass p-8 rounded-[2rem] audio-card border border-white/5 md:col-span-2 md:max-w-xl md:mx-auto w-full" data-id="igreja">
+                    <div class="flex items-center gap-5 mb-8">
+                        <div class="w-14 h-14 bg-purple-600 rounded-2xl flex items-center justify-center text-white shadow-lg">
+                            <i data-lucide="book-open"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white text-lg uppercase tracking-tight">Locução para Igrejas</h4>
+                            <p class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Narração Solene / Eventos</p>
+                        </div>
+                    </div>
+                    <div class="bg-black/60 p-5 rounded-2xl flex items-center gap-5">
+                        <button onclick="toggleAudio('igreja')" class="w-12 h-12 rounded-full bg-yellow-500 text-black flex items-center justify-center hover:scale-110 transition play-btn">
+                            <i data-lucide="play" class="ml-1 fill-current"></i>
+                        </button>
+                        <div class="flex-1">
+                            <div class="h-1 bg-white/10 w-full rounded-full overflow-hidden mb-2">
+                                <div class="h-full bg-yellow-500 w-0 progress-bar"></div>
+                            </div>
+                            <div class="flex justify-between text-[10px] font-mono text-gray-600">
+                                <span class="current-time">0:00</span>
+                                <span class="duration">0:00</span>
+                            </div>
+                        </div>
+                        <audio src="https://sites-manoelgoncalves.baatq5.easypanel.host/wp-content/uploads/2023/09/PROJ-IDE-AD_LOC-MANOEL-GONCALVES_2023-08-11-15_08_44.mp3" preload="metadata" ontimeupdate="updateProgress(this)" onended="audioEnded(this)"></audio>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <!-- Vídeo Demonstrativo -->
+    <!-- Vídeos Demonstrativos -->
     <section id="video" class="py-32 bg-black px-6 border-t border-white/5">
-        <div class="max-w-5xl mx-auto text-center">
+        <div class="max-w-7xl mx-auto text-center">
             <h2 class="text-4xl md:text-6xl font-bold mb-4 text-white uppercase font-title tracking-tight">Trabalhos em Vídeo</h2>
             <p class="text-gray-500 text-[10px] font-bold uppercase tracking-[0.3em] mb-16 underline decoration-yellow-500 underline-offset-8 tracking-widest">Aplicações Reais</p>
             
-            <div class="relative group max-w-4xl mx-auto">
-                <div class="absolute -inset-1 bg-gradient-to-r from-yellow-500 to-yellow-200 rounded-[2.5rem] blur opacity-10 group-hover:opacity-30 transition duration-1000"></div>
-                <div class="relative aspect-video rounded-[2rem] overflow-hidden border border-white/10 bg-black shadow-2xl">
-                    <iframe 
-                        class="w-full h-full" 
-                        src="https://www.youtube.com/embed/amvderkNXqw" 
-                        title="Demonstrativo Manoel Gonçalves" 
-                        frameBorder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                        allowFullScreen>
-                    </iframe>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Vídeo 1: YouTube -->
+                <div class="relative group">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-yellow-500 to-yellow-200 rounded-[2.5rem] blur opacity-10 group-hover:opacity-30 transition duration-1000"></div>
+                    <div class="relative aspect-video rounded-[2rem] overflow-hidden border border-white/10 bg-black shadow-2xl">
+                        <iframe 
+                            class="w-full h-full" 
+                            src="https://www.youtube.com/embed/amvderkNXqw" 
+                            title="Demonstrativo Manoel Gonçalves" 
+                            frameBorder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            allowFullScreen>
+                        </iframe>
+                    </div>
+                    <h4 class="mt-6 text-white font-bold tracking-widest text-[11px] uppercase">Apresentação Geral</h4>
+                </div>
+
+                <!-- Vídeo 2: Porta de Loja Ao Vivo -->
+                <div class="relative group">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-yellow-500 to-yellow-200 rounded-[2.5rem] blur opacity-10 group-hover:opacity-30 transition duration-1000"></div>
+                    <div class="relative aspect-video rounded-[2rem] overflow-hidden border border-white/10 bg-black shadow-2xl">
+                        <video controls class="w-full h-full object-contain bg-black/50" preload="metadata">
+                            <source src="https://sites-manoelgoncalves.baatq5.easypanel.host/wp-content/uploads/2024/05/Manoel-Goncalves-porta-de-loja.mp4" type="video/mp4">
+                            O seu navegador não suporta a tag de vídeo.
+                        </video>
+                    </div>
+                    <h4 class="mt-6 text-white font-bold tracking-widest text-[11px] uppercase">Estilo Ao Vivo (Porta de Loja)</h4>
+                </div>
+
+                <!-- Vídeo 3: Gravação Loja -->
+                <div class="relative group">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-yellow-500 to-yellow-200 rounded-[2.5rem] blur opacity-10 group-hover:opacity-30 transition duration-1000"></div>
+                    <div class="relative aspect-video rounded-[2rem] overflow-hidden border border-white/10 bg-black shadow-2xl">
+                        <video controls class="w-full h-full object-contain bg-black/50" preload="metadata">
+                            <source src="https://sites-manoelgoncalves.baatq5.easypanel.host/wp-content/uploads/2024/08/Propaganda-para-Lojas-Locutor-Manoel-Goncalves.mp4" type="video/mp4">
+                            O seu navegador não suporta a tag de vídeo.
+                        </video>
+                    </div>
+                    <h4 class="mt-6 text-white font-bold tracking-widest text-[11px] uppercase">Gravação Comercial (Loja)</h4>
                 </div>
             </div>
         </div>
@@ -234,11 +348,13 @@
             const currentTimeEl = card.querySelector('.current-time');
             const durationEl = card.querySelector('.duration');
 
-            const percent = (audio.currentTime / audio.duration) * 100;
-            progressBar.style.width = percent + '%';
-            
-            currentTimeEl.innerText = formatTime(audio.currentTime);
-            durationEl.innerText = formatTime(audio.duration);
+            if(audio.duration) {
+                const percent = (audio.currentTime / audio.duration) * 100;
+                progressBar.style.width = percent + '%';
+                
+                currentTimeEl.innerText = formatTime(audio.currentTime);
+                durationEl.innerText = formatTime(audio.duration);
+            }
         }
 
         function audioEnded(audio) {
